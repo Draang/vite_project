@@ -8,9 +8,9 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
+    <div className="container mx-auto mt-5">
       <Header />
-    </>
+    </div>
   );
 }
 

@@ -1,8 +1,10 @@
 export default function Header() {
   return (
-    <header className="grid">
-      <h1 className="text-4xl font-bold uppercase ">This is a header</h1>
-    </header>
+    <>
+      <h1 className="mx-auto text-center text-5xl font-black md:w-2/3">
+        Seguimiento pacientes <span className="uppercase tracking-wide text-indigo-700">vet</span>
+      </h1>
+    </>
   );
 }
 /*  */
