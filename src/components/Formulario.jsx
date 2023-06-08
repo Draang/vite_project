@@ -65,7 +65,7 @@ export default function Formulario() {
         </div>
         <input
           type="submit"
-          className="w-full cursor-pointer rounded-md bg-indigo-500 p-3 font-extrabold text-white transition-transform hover:bg-indigo-700"
+          className="w-full cursor-pointer rounded-md bg-indigo-500 p-3 font-extrabold text-white transition-transform hover:bg-indigo-700 hover:font-bold"
         />
       </form>
     </div>
