@@ -1,3 +1,4 @@
+import { useState,useEffect } from "react";
 export default function Formulario() {
   return (
     <div className="md:w-1/2 lg:w-2/5">
@@ -55,7 +56,7 @@ export default function Formulario() {
         </div>
         <div className="mb-2">
           <label className="block font-bold text-gray-800" htmlFor="sintomas">
-            Fecha de alta
+     Sintomas
           </label>
           <textarea
             id="sintomas"
