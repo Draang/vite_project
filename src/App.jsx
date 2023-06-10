@@ -7,14 +7,14 @@ import Formulario from "./components/Formulario";
 import ListadoPacientes from "./components/ListadoPacientes";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [pacientes, setPacientes] = useState([]);
 
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto  h-screen">
        <Header />
-      <div className="mx-auto mt-12  space-x-6 md:flex"> 
-       <Formulario/>
-       <ListadoPacientes/>
+      <div className="mx-auto mt-12 h-5/6 space-x-6 md:flex"> 
+       <Formulario setPacientes={setPacientes} pacientes={pacientes}/>
+       <ListadoPacientes setPacientes={setPacientes} pacientes={pacientes}/>
       </div>
     </div>
   );
