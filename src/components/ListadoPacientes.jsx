@@ -1,7 +1,12 @@
 import Paciente from "./Paciente";
 
 export default function ListadoPacientes(props) {
-  const {pacientes,setPacientes}=props
+  const { pacientes, setPacientes } = props;
+  const handleDelete = (index) => {
+    let tmpPacientes = [...pacientes];
+    tmpPacientes.splice(index, 1);
+    setPacientes(tmpPacientes);
+  };
   return (
     <div className="md:w-1/2 lg:w-3/5">
       <h2 className="text-left text-3xl font-black"> Listado de Pacientes</h2>
@@ -10,9 +15,10 @@ export default function ListadoPacientes(props) {
         <span className="font-bold text-indigo-700">Pacientes y Citas</span>
       </p>
       {/* Componente paciente */}
-      <div className="flex h-full flex-col overflow-y-scroll">
-        {pacientes.map((v,i)=><Paciente key={i}/>)}
-      
+      <div className="flex h-full flex-col overflow-y-auto">
+        {pacientes.map((v, i, array) => (
+          <Paciente key={i} paciente={v} handleDelete={() => handleDelete(i)} />
+        ))}
       </div>
     </div>
   );

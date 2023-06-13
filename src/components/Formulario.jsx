@@ -7,16 +7,24 @@ export default function Formulario(props) {
   const [emailP, setEmailP] = useState("");
   const [alta, setAlta] = useState("");
   const [sintomas, setSintomas] = useState("");
+  const [error, setError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const tmpPaciente = {
-      nombreMascota,
-      nombreP,
-      emailP,
-      alta,
-      sintomas,
-    };
-    setPacientes([...pacientes,tmpPaciente])
+    //Validacion de formulario
+    if ([nombreMascota, nombreP, emailP, alta, sintomas].includes("")) {
+      setError(true);
+    } else {
+      setError(false);
+      const tmpPaciente = {
+        nombreMascota,
+        nombreP,
+        emailP,
+        alta,
+        sintomas,
+      };
+      setPacientes([...pacientes, tmpPaciente]);
+    }
   };
   return (
     <div className="h-auto md:w-1/2 lg:w-2/5">
@@ -29,6 +37,14 @@ export default function Formulario(props) {
         className="mt-4 rounded-md bg-white px-5 py-10 shadow-md"
         onSubmit={handleSubmit}
       >
+        {error && (
+          <div
+            className="mb-3 mt-3 rounded-lg border-2 border-red-600 bg-red-400 p-2 text-center font-medium uppercase text-white  active:ease-in duration-75"
+            onClick={() => setError(false)}
+          >
+            <p>Error hay un campo vacio</p>
+          </div>
+        )}
         <div className="mb-2">
           <label
             className="block font-bold text-gray-800"
