@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-export default function Paciente({ paciente,handleDelete}) {
+export default function Paciente({ paciente, handleDelete ,setPaciente}) {
   const { nombreMascota, nombreP, emailP, alta, sintomas } = paciente;
 
   return (
@@ -24,8 +24,18 @@ export default function Paciente({ paciente,handleDelete}) {
           Sintomas: <span className="font-normal normal-case">{sintomas}</span>
         </p>
       </div>
-      <div className="h-fit w-2/6">
-        <button onClick={handleDelete} className="flex w-full justify-center rounded-3xl border-2 border-red-700 bg-transparent pb-2 pt-2 font-bold text-red-500 transition-colors hover:bg-red-700 hover:text-white active:bg-red-950">
+
+      <div className="h-fit w-2/6 space-y-2.5">
+        <button
+          onClick={() => setPaciente(paciente)}
+          className="flex w-full justify-center rounded-3xl border-2 border-transparent bg-blue-700 pb-2 pt-2 font-bold text-white  transition-colors hover:border-blue-700 hover:bg-transparent hover:text-blue-500 active:bg-blue-950 active:text-white"
+        >
+          Editar
+        </button>
+        <button
+          onClick={handleDelete}
+          className="flex w-full justify-center rounded-3xl border-2 border-transparent bg-red-700 pb-2 pt-2 font-bold text-white transition-colors hover:border-red-700 hover:bg-transparent   hover:text-red-500 "
+        >
           Eliminar
         </button>
       </div>

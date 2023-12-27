@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import Paciente from "./Paciente";
 
 export default function ListadoPacientes(props) {
-  const { pacientes, setPacientes } = props;
+  const { pacientes, setPacientes, setPaciente } = props;
   const handleDelete = (index) => {
     let tmpPacientes = [...pacientes];
     tmpPacientes.splice(index, 1);
@@ -17,7 +18,12 @@ export default function ListadoPacientes(props) {
       {/* Componente paciente */}
       <div className="flex h-full flex-col overflow-y-auto">
         {pacientes.map((v, i, array) => (
-          <Paciente key={i} paciente={v} handleDelete={() => handleDelete(i)} />
+          <Paciente
+            key={v.key}
+            paciente={v}
+            handleDelete={() => handleDelete(i)}
+            setPaciente={setPaciente}
+          />
         ))}
       </div>
     </div>

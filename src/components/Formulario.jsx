@@ -1,13 +1,30 @@
 import { useState, useEffect } from "react";
-
+import Error from "./Error";
 export default function Formulario(props) {
-  const { pacientes, setPacientes } = props;
+  const { pacientes, setPacientes, paciente } = props;
   const [nombreMascota, setNombreMascota] = useState("");
   const [nombreP, setNombreP] = useState("");
   const [emailP, setEmailP] = useState("");
   const [alta, setAlta] = useState("");
   const [sintomas, setSintomas] = useState("");
   const [error, setError] = useState(false);
+  const [key, setKey] = useState();
+  const generateKey = () => {
+    const fecha = Date.now().toString(36);
+    const randomStr = Math.random.toString(36).substr(2);
+    return fecha + randomStr;
+  };
+  useEffect(() => {
+    if (Object.keys(paciente).length > 0) {
+      console.log(paciente);
+      setNombreMascota(paciente.nombreMascota);
+      setNombreP(paciente.nombreP);
+      setEmailP(paciente.emailP);
+      setAlta(paciente.alta);
+      setSintomas(paciente.sintomas);
+      setKey(paciente.key);
+    }
+  }, [paciente]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,16 +33,50 @@ export default function Formulario(props) {
       setError(true);
     } else {
       setError(false);
-      const tmpPaciente = {
-        nombreMascota,
-        nombreP,
-        emailP,
-        alta,
-        sintomas,
-      };
-      setPacientes([...pacientes, tmpPaciente]);
+      if (key) {
+        const tmpPaciente = {
+          nombreMascota,
+          nombreP,
+          emailP,
+          alta,
+          sintomas,
+          key: key,
+        };
+        const tmpPacientes=[...pacientes]
+        const newPacientes=tmpPacientes.map((v)=> v.key==key?tmpPaciente:v)
+        setPacientes([...newPacientes])
+        setKey(undefined)
+        
+      } else {
+        
+        const tmpPaciente = {
+          nombreMascota,
+          nombreP,
+          emailP,
+          alta,
+          sintomas,
+          key: generateKey(),
+        };
+        setPacientes([...pacientes, tmpPaciente]);
+      }
+      setNombreMascota("");
+      setNombreP("");
+      setEmailP("");
+      setAlta("");
+      setSintomas("");
+
     }
   };
+  const handleReset = (e) => {
+    e.preventDefault();
+    setNombreMascota("");
+    setNombreP("");
+    setEmailP("");
+    setAlta("");
+    setSintomas("");
+    setKey(undefined);
+  };
+
   return (
     <div className="h-auto md:w-1/2 lg:w-2/5">
       <h2 className="text-left text-3xl font-black">Seguimeinto pacientes</h2>
@@ -36,14 +87,10 @@ export default function Formulario(props) {
       <form
         className="mt-4 rounded-md bg-white px-5 py-10 shadow-md"
         onSubmit={handleSubmit}
+        onReset={handleReset}
       >
         {error && (
-          <div
-            className="mb-3 mt-3 rounded-lg border-2 border-red-600 bg-red-400 p-2 text-center font-medium uppercase text-white  active:ease-in duration-75"
-            onClick={() => setError(false)}
-          >
-            <p>Error hay un campo vacio</p>
-          </div>
+          <Error errorText={"Error campo vacio!"} setError={setError} />
         )}
         <div className="mb-2">
           <label
@@ -113,7 +160,12 @@ export default function Formulario(props) {
         </div>
         <input
           type="submit"
+          value={key ? "Guardar Cambios" : "Enviar"}
           className="w-full cursor-pointer rounded-md bg-indigo-500 p-3 font-extrabold text-white transition-transform hover:bg-indigo-700 hover:font-bold"
+        />
+        <input
+          type="reset"
+          className="mt-1 w-full cursor-pointer rounded-md bg-amber-500 p-3 font-extrabold text-white transition-transform hover:bg-amber-700 hover:font-bold"
         />
       </form>
     </div>
