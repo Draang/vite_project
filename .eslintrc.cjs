@@ -11,6 +11,7 @@ module.exports = {
   plugins: ['react-refresh','tailwindcss'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    'react/prop-types':'warn',
     'no-unused-vars':'warn',
     'no-undef':'warn',
     "tailwindcss/classnames-order": "warn",
